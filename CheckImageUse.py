@@ -4,6 +4,20 @@
 import os
 import subprocess
 
+dartList = []
+dictImage = {}
+
+except_paths = [
+    "bundle_trainticket",
+    "bundle_violation",
+    "bundle_movieticket",
+    "app_refuel",
+    "app_washcar",
+    "build",
+    "ios",
+    "android",
+]
+
 
 def do_grep(path, key_word):
     command = "grep -w -q '%s' '%s'" % (key_word, path)
@@ -32,40 +46,36 @@ def delete_image(dictImage, dartList):
             os.remove(dictImage[image])
 
 
+def is_inside_path(root):
+    is_except = False
+    for do_not_check_path in except_paths:
+        if root.__contains__(do_not_check_path):
+            is_except = True
+            break
+    return is_except
+
+
 def save_images(file):
-    dartList = []
-    dictImage = {}
     for root, dirs, files in os.walk(file):
 
         # root 表示当前正在访问的文件夹路径
         # dirs 表示该文件夹下的子目录名list
         # files 表示该文件夹下的文件list
-
+        if is_inside_path(root):
+            continue
         # 遍历文件
         for f in files:
-            if root.__contains__("build"):
-                break
             if f.endswith(".png"):
                 dictImage[f] = os.path.join(root, f)
+                break
             if f.endswith(".dart"):
                 dartList.append(os.path.join(root, f))
-    delete_image(dictImage, dartList)
 
 
 def doImageCheck():
     print("doImageCheck...")
-    paths = ["/work/home/eric/source/QingV2_Flutter/package/qingv2/bundle_hotel",
-             "/work/home/eric/source/QingV2_Flutter/package/qingv2/qingv2_config",
-             "/work/home/eric/source/QingV2_Flutter/package/qingv2/bundle_car_gas",
-             # "/work/home/eric/source/QingV2_Flutter/package/qingv2/bundle_takeaway",
-             "/work/home/eric/source/QingV2_Flutter/package/qingv2/bundle_washcar"]
-    # paths = [
-    #          "/work/home/eric/source/project/q2fe_wuling/q2fe-steward.wuling/q2fe-bundle/qingv2_config",
-    #          "/work/home/eric/source/project/q2fe_wuling/q2fe-steward.wuling/q2fe-bundle/bundle_car_gas",
-    #          "/work/home/eric/source/project/q2fe_wuling/q2fe-steward.wuling/q2fe-bundle/bundle_washcar"]
-
-    for path in paths:
-        save_images(path)
+    save_images("/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2")
+    delete_image(dictImage, dartList)
 
 
 if __name__ == '__main__':
