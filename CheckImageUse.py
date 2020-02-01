@@ -8,11 +8,11 @@ dartList = []
 dictImage = {}
 
 except_paths = [
-    "bundle_trainticket",
-    "bundle_violation",
-    "bundle_movieticket",
-    "app_refuel",
-    "app_washcar",
+    # "bundle_trainticket",
+    # "bundle_violation",
+    # "bundle_movieticket",
+    # "app_refuel",
+    # "app_washcar",
     "build",
     "ios",
     "android",
@@ -67,14 +67,16 @@ def save_images(file):
         for f in files:
             if f.endswith(".png"):
                 dictImage[f] = os.path.join(root, f)
-                break
             if f.endswith(".dart"):
                 dartList.append(os.path.join(root, f))
 
 
 def doImageCheck():
     print("doImageCheck...")
-    save_images("/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2")
+    # save_images()
+    ret = input('请填写目录:\n')
+    # ret = "/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2"
+    save_images(ret)
     delete_image(dictImage, dartList)
 
 

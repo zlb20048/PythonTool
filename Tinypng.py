@@ -54,10 +54,10 @@ def walkFile(file):
 
 def doTinypng():
     tinify.key = "CrXJrQCjVMwRfywf9lfGcDNbmrnB1H6W"
-    # ret = input('请填写需要压缩图片目录')
+    ret = input('请填写需要压缩图片目录:\n')
     # path = "/work/home/eric/source/QingV2_Flutter/package/qingv2/bundle_trainticket"
-    path = "/home/zixiangliu/Desktop"
-    walkFile(path)
+    # path = "/home/zixiangliu/Desktop"
+    walkFile(ret)
 
 
 if __name__ == '__main__':
