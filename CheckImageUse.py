@@ -74,8 +74,8 @@ def save_images(file):
 def doImageCheck():
     print("doImageCheck...")
     # save_images()
-    ret = input('请填写目录:\n')
-    # ret = "/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2"
+    # ret = input('请填写目录:\n')
+    ret = "/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2/bundle_trainticket"
     save_images(ret)
     delete_image(dictImage, dartList)
 

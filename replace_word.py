@@ -10,10 +10,10 @@
 import os
 import re
 
-order_key = {"fontSize:": "DHelper.setSp(", "width:": "DHelper.setWidth(", "height:": "DHelper.setHeight(",
-             "left:": "DHelper.setWidth(", "right:": "DHelper.setWidth(", "top:": "DHelper.setHeight(",
-             "bottom:": "DHelper.setHeight("}
-
+# order_key = {"fontSize:": "DHelper.setSp(", "width:": "DHelper.setWidth(", "height:": "DHelper.setHeight(",
+#              "left:": "DHelper.setWidth(", "right:": "DHelper.setWidth(", "top:": "DHelper.setHeight(",
+#              "bottom:": "DHelper.setHeight("}
+order_key = {"ScreenUtil.getInstance()": "DHelper", "Xwidth": "DHelper.setWidth", "Xheight": "DHelper.setHeight"}
 
 def check_used(content_list):
     is_used = False
@@ -28,14 +28,17 @@ def check_used(content_list):
             for key in order_key.keys():
                 if key in line:
                     # has key , we will replace it
-                    splits = line.split(key)
-                    result = splits[1]
-                    currentNunber = result.split(",")[0]
-                    currentNunber = currentNunber.split(")")[0]
-                    if currentNunber.strip().isdigit():
-                        order_str = key  + currentNunber
-                        new_str = key + " " + order_key[key] + currentNunber.strip() + ")"
-                        a = re.sub(order_str, new_str, line)
+                    # splits = line.split(key)
+                    # result = splits[1]
+                    # currentNunber = result.split(",")[0]
+                    # currentNunber = currentNunber.split(")")[0]
+                    # if currentNunber.strip().isdigit():
+                    #     order_str = key  + currentNunber
+                    #     new_str = key + " " + order_key[key] + currentNunber.strip() + ")"
+                    #     a = re.sub(order_str, new_str, line)
+                    #     line = a
+                    a = re.sub(key, order_key[key], line)
+                    line = a
             file.write(a)
         file.close()
     return is_used
@@ -64,5 +67,5 @@ def walkFile(file):
 
 
 if __name__ == '__main__':
-    path = "/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2/bundle_trainticket"
+    path = "/home/zixiangliu/project/pateo/flutter/qingv2/package/qingv2/qingv2_config"
     walkFile(path)
